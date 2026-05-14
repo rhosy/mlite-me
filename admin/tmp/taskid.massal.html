@@ -1,0 +1,109 @@
+<style media="screen">
+  th, td {
+    white-space: nowrap;
+    vertical-align: top !important;
+  }
+  .help-block {
+    margin-bottom: 0;
+  }
+</style>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="http://localhost:8085/admin/jkn_mobile/taskid?t=197af77d8384" class="btn btn-sm btn-default pull-right" style="margin-top:-6px;">
+          <i class="fa fa-arrow-left"></i> Kembali ke Task ID
+        </a>
+        <h3 class="panel-title">Update Massal Task ID</h3>
+      </div>
+      <div class="panel-body">
+        <form action="http://localhost:8085/admin/jkn_mobile/taskidmassal?t=197af77d8384" method="POST" class="form-inline" style="margin-bottom:15px;">
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih tanggal Antrol</label>
+            <input type="text" id="tanggal_antrol" class="form-control" name="tanggal_antrol" value="2026-05-14" required>
+          </div>
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih Dokter</label>
+            <select class="form-control" name="kd_dokter" required>
+              <option value="">-- Pilih Dokter --</option>
+                            <option value="DR001" >DR001 - dr. Ataaka Muhammad</option>
+                            <option value="DR002" >DR002 - dr. Demo Kedua</option>
+                          </select>
+          </div>
+          <div class="form-group" style="margin-top:22px;">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan Pasien</button>
+          </div>
+          <div class="form-group" style="margin-top:22px;margin-left:10px;">
+            <span class="label label-info" style="font-size:12px;padding:8px 10px;display:inline-block;">
+              Jumlah Pasien: 0            </span>
+          </div>
+        </form>
+
+              </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    $('#tanggal_antrol').datetimepicker({
+      format: 'YYYY-MM-DD',
+      locale: 'id'
+    });
+
+    $('#jam_mulai, #jam_akhir').datetimepicker({
+      format: 'HH:mm',
+      locale: 'id'
+    });
+
+    function acakWaktuBerurutan(startMoment, endMoment) {
+      var totalSeconds = endMoment.diff(startMoment, 'seconds');
+      var offsets = [];
+      for (var i = 0; i < 7; i++) {
+        offsets.push(Math.floor(Math.random() * (totalSeconds + 1)));
+      }
+      offsets.sort(function(a, b) { return a - b; });
+      return offsets.map(function(offset) {
+        return startMoment.clone().add(offset, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+      });
+    }
+
+    $('#btn-terapkan').on('click', function() {
+      var tanggal = $('#tanggal_antrol').val();
+      var jamMulai = $('#jam_mulai').val();
+      var jamAkhir = $('#jam_akhir').val();
+
+      if (!tanggal || !jamMulai || !jamAkhir) {
+        alert('Isi tanggal antrol, jam mulai, dan jam akhir terlebih dahulu.');
+        return;
+      }
+
+      var startMoment = moment(tanggal + ' ' + jamMulai, 'YYYY-MM-DD HH:mm');
+      var endMoment = moment(tanggal + ' ' + jamAkhir, 'YYYY-MM-DD HH:mm');
+
+      if (!startMoment.isValid() || !endMoment.isValid()) {
+        alert('Format tanggal atau jam tidak valid.');
+        return;
+      }
+
+      if (!endMoment.isAfter(startMoment)) {
+        alert('Jam akhir harus lebih besar dari jam mulai.');
+        return;
+      }
+
+      $('.massal-row').each(function() {
+        var noref = $(this).data('noref');
+        if (!noref) {
+          return;
+        }
+
+        var waktuAcak = acakWaktuBerurutan(startMoment, endMoment);
+        var inputs = $(this).find('.task-input');
+        inputs.each(function(idx) {
+          if (idx < 7 && !$(this).is(':disabled')) {
+            $(this).val(waktuAcak[idx]);
+          }
+        });
+      });
+    });
+  });
+</script>

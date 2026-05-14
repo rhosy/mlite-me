@@ -1,0 +1,187 @@
+<style media="screen">
+  th, td {
+    white-space: nowrap;
+    vertical-align: top !important;
+  }
+  .help-block {
+    margin-bottom: 0;
+  }
+</style>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="{?=url([ADMIN,'jkn_mobile','taskid'])?}" class="btn btn-sm btn-default pull-right" style="margin-top:-6px;">
+          <i class="fa fa-arrow-left"></i> Kembali ke Task ID
+        </a>
+        <h3 class="panel-title">Update Massal Task ID</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{?=url([ADMIN,'jkn_mobile','taskidmassal'])?}" method="POST" class="form-inline" style="margin-bottom:15px;">
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih tanggal Antrol</label>
+            <input type="text" id="tanggal_antrol" class="form-control" name="tanggal_antrol" value="{$tanggal_antrol}" required>
+          </div>
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih Dokter</label>
+            <select class="form-control" name="kd_dokter" required>
+              <option value="">-- Pilih Dokter --</option>
+              {loop: $dokter}
+              <option value="{$value.kd_dokter}" {if: $kd_dokter == $value.kd_dokter}selected{/if}>{$value.kd_dokter} - {$value.nm_dokter}</option>
+              {/loop}
+            </select>
+          </div>
+          <div class="form-group" style="margin-top:22px;">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan Pasien</button>
+          </div>
+          <div class="form-group" style="margin-top:22px;margin-left:10px;">
+            <span class="label label-info" style="font-size:12px;padding:8px 10px;display:inline-block;">
+              Jumlah Pasien: {$total_rows}
+            </span>
+          </div>
+        </form>
+
+        {if: $has_rows}
+        <form action="{?=url([ADMIN,'jkn_mobile','savetaskidmassal'])?}" method="POST" id="form-taskid-massal">
+          <input type="hidden" name="tanggal_antrol" value="{$tanggal_antrol}">
+          <input type="hidden" name="kd_dokter" value="{$kd_dokter}">
+
+          <div class="row" style="margin-bottom:10px;">
+            <div class="col-md-3">
+              <label>Jam mulai</label>
+              <input type="text" id="jam_mulai" class="form-control" placeholder="18:00" required>
+            </div>
+            <div class="col-md-3">
+              <label>Jam akhir</label>
+              <input type="text" id="jam_akhir" class="form-control" placeholder="19:00" required>
+            </div>
+            <div class="col-md-6" style="padding-top:25px;">
+              <button type="button" class="btn btn-warning" id="btn-terapkan">
+                <i class="fa fa-random"></i> Terapkan Jam Acak Task 1-7
+              </button>
+              <button type="submit" class="btn btn-success">
+                <i class="fa fa-save"></i> Simpan ke Database
+              </button>
+            </div>
+          </div>
+
+          <p class="help-block text-muted">
+            Sistem akan mengacak jam task 1 s/d 7 per pasien dalam rentang yang dipilih, dan tetap berurutan (task1 <= task2 <= ... <= task7).
+          </p>
+
+          <div class="table-responsive no-margin">
+            <table class="table table-condensed table-bordered display no-wrap" width="100%">
+              <thead>
+                <tr>
+                  <th>No RM</th>
+                  <th>Nama Pasien</th>
+                  <th>No Rawat</th>
+                  <th>Dokter</th>
+                  <th>Kode Booking</th>
+                  <th>Task 1</th>
+                  <th>Task 2</th>
+                  <th>Task 3</th>
+                  <th>Task 4</th>
+                  <th>Task 5</th>
+                  <th>Task 6</th>
+                  <th>Task 7</th>
+                </tr>
+              </thead>
+              <tbody>
+                {loop: $rows}
+                <tr class="massal-row" data-noref="{$value.nomor_referensi}">
+                  <td>{$value.no_rkm_medis}</td>
+                  <td>{$value.nm_pasien}</td>
+                  <td>{$value.no_rawat}</td>
+                  <td>{$value.nm_dokter}</td>
+                  <td>
+                    {$value.nomor_referensi}
+                    {if: $value.nomor_referensi == ''}
+                    <span class="label label-danger">Belum ada kode booking</span>
+                    {/if}
+                  </td>
+                  <td>
+                    <input type="hidden" name="nomor_referensi[]" value="{$value.nomor_referensi}">
+                    <input type="text" class="form-control task-input" name="task1[]" value="{$value.task1}" {if: $value.nomor_referensi == ''}readonly{/if}>
+                  </td>
+                  <td><input type="text" class="form-control task-input" name="task2[]" value="{$value.task2}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                  <td><input type="text" class="form-control task-input" name="task3[]" value="{$value.task3}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                  <td><input type="text" class="form-control task-input" name="task4[]" value="{$value.task4}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                  <td><input type="text" class="form-control task-input" name="task5[]" value="{$value.task5}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                  <td><input type="text" class="form-control task-input" name="task6[]" value="{$value.task6}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                  <td><input type="text" class="form-control task-input" name="task7[]" value="{$value.task7}" {if: $value.nomor_referensi == ''}readonly{/if}></td>
+                </tr>
+                {/loop}
+              </tbody>
+            </table>
+          </div>
+        </form>
+        {/if}
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function () {
+    $('#tanggal_antrol').datetimepicker({
+      format: 'YYYY-MM-DD',
+      locale: 'id'
+    });
+
+    $('#jam_mulai, #jam_akhir').datetimepicker({
+      format: 'HH:mm',
+      locale: 'id'
+    });
+
+    function acakWaktuBerurutan(startMoment, endMoment) {
+      var totalSeconds = endMoment.diff(startMoment, 'seconds');
+      var offsets = [];
+      for (var i = 0; i < 7; i++) {
+        offsets.push(Math.floor(Math.random() * (totalSeconds + 1)));
+      }
+      offsets.sort(function(a, b) { return a - b; });
+      return offsets.map(function(offset) {
+        return startMoment.clone().add(offset, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+      });
+    }
+
+    $('#btn-terapkan').on('click', function() {
+      var tanggal = $('#tanggal_antrol').val();
+      var jamMulai = $('#jam_mulai').val();
+      var jamAkhir = $('#jam_akhir').val();
+
+      if (!tanggal || !jamMulai || !jamAkhir) {
+        alert('Isi tanggal antrol, jam mulai, dan jam akhir terlebih dahulu.');
+        return;
+      }
+
+      var startMoment = moment(tanggal + ' ' + jamMulai, 'YYYY-MM-DD HH:mm');
+      var endMoment = moment(tanggal + ' ' + jamAkhir, 'YYYY-MM-DD HH:mm');
+
+      if (!startMoment.isValid() || !endMoment.isValid()) {
+        alert('Format tanggal atau jam tidak valid.');
+        return;
+      }
+
+      if (!endMoment.isAfter(startMoment)) {
+        alert('Jam akhir harus lebih besar dari jam mulai.');
+        return;
+      }
+
+      $('.massal-row').each(function() {
+        var noref = $(this).data('noref');
+        if (!noref) {
+          return;
+        }
+
+        var waktuAcak = acakWaktuBerurutan(startMoment, endMoment);
+        var inputs = $(this).find('.task-input');
+        inputs.each(function(idx) {
+          if (idx < 7 && !$(this).is(':disabled')) {
+            $(this).val(waktuAcak[idx]);
+          }
+        });
+      });
+    });
+  });
+</script>
