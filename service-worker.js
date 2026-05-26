@@ -21,12 +21,23 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   //console.log('Fetch intercepted for:', event.request.url);
-  event.respondWith(caches.match(event.request)
-    .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request);
-      })
-    );
+
+  // Jangan intercept request ke /admin/ — biarkan browser handle langsung
+  // agar session cookie dan dynamic response tetap bekerja
+  if (event.request.url.includes('/admin/')) {
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request).catch(function () {
+        // Jika network gagal dan tidak ada cache, kembalikan response kosong
+        // agar tidak terjadi uncaught promise rejection
+        return new Response('', { status: 503, statusText: 'Service Unavailable' });
+      });
+    })
+  );
 });

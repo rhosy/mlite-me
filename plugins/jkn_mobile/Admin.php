@@ -1211,6 +1211,221 @@ class Admin extends AdminModule
     exit();
   }
 
+  // ---------------------------------------------------------------
+  // Bulk Update Waktu — halaman baru pilih banyak pasien
+  // ---------------------------------------------------------------
+
+  public function anyUpdatewaktubulk()
+  {
+    $this->_addHeaderFiles();
+    $this->getCssCard();
+
+    $tanggal_antrol = date('Y-m-d');
+    $kd_dokter = '';
+
+    if (isset($_POST['tanggal_antrol']) && $_POST['tanggal_antrol'] != '') {
+      $tanggal_antrol = $_POST['tanggal_antrol'];
+    }
+    if (isset($_POST['kd_dokter']) && $_POST['kd_dokter'] != '') {
+      $kd_dokter = $_POST['kd_dokter'];
+    }
+
+    $dokter = $this->db('dokter')->where('status', '1')->toArray();
+    $rows   = [];
+
+    if (!empty($kd_dokter)) {
+      $exclude_taskid = str_replace(",", "','", $this->settings->get('jkn_mobile.exclude_taskid'));
+      $query = $this->db()->pdo()->prepare(
+        "SELECT pasien.no_rkm_medis, pasien.nm_pasien,
+                reg_periksa.no_rawat, reg_periksa.tgl_registrasi, reg_periksa.jam_reg,
+                reg_periksa.kd_dokter, dokter.nm_dokter, poliklinik.nm_poli,
+                mar.kodebooking, mar.nomor_referensi
+         FROM reg_periksa
+         INNER JOIN pasien    ON pasien.no_rkm_medis    = reg_periksa.no_rkm_medis
+         INNER JOIN dokter    ON dokter.kd_dokter        = reg_periksa.kd_dokter
+         INNER JOIN poliklinik ON poliklinik.kd_poli     = reg_periksa.kd_poli
+         LEFT  JOIN mlite_antrian_referensi mar
+                ON  mar.tanggal_periksa = reg_periksa.tgl_registrasi
+                AND mar.no_rkm_medis    = reg_periksa.no_rkm_medis
+         WHERE reg_periksa.tgl_registrasi = ?
+           AND reg_periksa.kd_dokter      = ?
+           AND reg_periksa.kd_poli NOT IN ('$exclude_taskid')
+           AND reg_periksa.stts <> 'Batal'
+           AND (IFNULL(mar.kodebooking,'') <> '' OR IFNULL(mar.nomor_referensi,'') <> '')
+         ORDER BY CONCAT(reg_periksa.tgl_registrasi,' ',reg_periksa.jam_reg)"
+      );
+      $query->execute([$tanggal_antrol, $kd_dokter]);
+      $query = $query->fetchAll(\PDO::FETCH_ASSOC);
+
+      foreach ($query as $q) {
+        // Prioritaskan kodebooking sebagai identifier ke BPJS
+        $noref = isset_or($q['kodebooking'], '');
+        if (empty($noref)) {
+          $noref = isset_or($q['nomor_referensi'], '');
+        }
+        $q['nomor_referensi'] = $noref;
+
+        // Ambil status setiap taskid (1–7) dari DB dan precompute badge HTML
+        for ($i = 1; $i <= 7; $i++) {
+          $task = $this->db('mlite_antrian_referensi_taskid')
+            ->where('nomor_referensi', $q['kodebooking'])
+            ->where('taskid', (string)$i)
+            ->oneArray();
+          $status = $task ? (isset($task['status']) ? $task['status'] : '') : '';
+          $q['task' . $i . '_status'] = $status;
+          $q['task' . $i . '_badge']  = $this->_taskBadge($status);
+        }
+
+        $rows[] = $q;
+      }
+    }
+
+    return $this->draw('taskid.bulkupdate.html', [
+      'rows'          => $rows,
+      'has_rows'      => !empty($rows),
+      'total_rows'    => count($rows),
+      'dokter'        => $dokter,
+      'tanggal_antrol' => $tanggal_antrol,
+      'kd_dokter'     => $kd_dokter,
+    ]);
+  }
+
+  /**
+   * AJAX endpoint — proses satu pasien, return JSON.
+   * GET /admin/jkn_mobile/updatewaktujson/{nomor_referensi}/{kode_booking}/{versi}
+   */
+  public function getUpdatewaktujson($nomor_referensi, $kode_booking, $versi)
+  {
+    header('Content-Type: application/json; charset=utf-8');
+
+    // Cari record referensi
+    $mar = $this->db('mlite_antrian_referensi')
+      ->where('nomor_referensi', $nomor_referensi)
+      ->where('kodebooking', $kode_booking)
+      ->oneArray();
+
+    if (!$mar) {
+      // Fallback: cari hanya dengan kodebooking
+      $mar = $this->db('mlite_antrian_referensi')
+        ->where('kodebooking', $kode_booking)
+        ->oneArray();
+    }
+
+    if (!$mar) {
+      echo json_encode([
+        'success' => false,
+        'message' => 'Data referensi tidak ditemukan untuk kode booking: ' . htmlspecialchars($kode_booking, ENT_QUOTES),
+        'results' => []
+      ]);
+      exit();
+    }
+
+    // Jenisresep untuk V3 task 5
+    $jenisresep = 'Non racikan';
+    if ($versi === 'v3') {
+      $reg_periksa = $this->db('reg_periksa')
+        ->where('tgl_registrasi', $mar['tanggal_periksa'])
+        ->where('no_rkm_medis', $mar['no_rkm_medis'])
+        ->oneArray();
+      if ($reg_periksa) {
+        $resep_obat = $this->db('resep_obat')
+          ->select(['no_resep' => 'no_resep'])
+          ->where('no_rawat', $reg_periksa['no_rawat'])
+          ->oneArray();
+        if ($resep_obat) {
+          $racikan = $this->db('resep_dokter_racikan')
+            ->where('no_resep', $resep_obat['no_resep'])
+            ->oneArray();
+          if (!empty($racikan)) {
+            $jenisresep = 'Racikan';
+          }
+        }
+      }
+    }
+
+    $url     = $this->bpjsurl . 'antrean/updatewaktu';
+    $results = [];
+
+    for ($i = 1; $i <= 7; $i++) {
+      $taskRow = $this->db('mlite_antrian_referensi_taskid')
+        ->where('nomor_referensi', $kode_booking)
+        ->where('taskid', (string)$i)
+        ->where('status', 'Belum')
+        ->oneArray();
+
+      if (!$taskRow) {
+        $results[] = [
+          'taskid'  => $i,
+          'success' => false,
+          'message' => 'Tidak ada data taskid ' . $i . ' dengan status Belum'
+        ];
+        continue;
+      }
+
+      if ($i === 5 && $versi === 'v3') {
+        $payload = [
+          'kodebooking' => $mar['kodebooking'],
+          'taskid'      => $i,
+          'waktu'       => $taskRow['waktu'],
+          'jenisresep'  => $jenisresep
+        ];
+      } else {
+        $payload = [
+          'kodebooking' => $mar['kodebooking'],
+          'taskid'      => $i,
+          'waktu'       => $taskRow['waktu']
+        ];
+      }
+
+      $output  = BpjsService::post($url, json_encode($payload), $this->consid, $this->secretkey, $this->user_key, NULL);
+      $json    = json_decode($output, true);
+      $code    = isset($json['metadata']['code'])    ? (int)$json['metadata']['code']    : 0;
+      $message = isset($json['metadata']['message']) ? $json['metadata']['message']       : 'Tidak ada respons';
+
+      if ($code === 200) {
+        $this->db('mlite_antrian_referensi_taskid')
+          ->where('nomor_referensi', $kode_booking)
+          ->where('taskid', $i)
+          ->save(['status' => 'Sudah', 'keterangan' => $message]);
+        $results[] = ['taskid' => $i, 'success' => true,  'message' => $message];
+      } else {
+        $this->db('mlite_antrian_referensi_taskid')
+          ->where('nomor_referensi', $kode_booking)
+          ->where('taskid', $i)
+          ->save(['keterangan' => $code . ': ' . $message]);
+        $results[] = ['taskid' => $i, 'success' => false, 'message' => $code . ': ' . $message];
+      }
+    }
+
+    $successCount = count(array_filter($results, function ($r) {
+      return $r['success'];
+    }));
+    echo json_encode([
+      'success' => $successCount > 0,
+      'results' => $results,
+      'summary' => $successCount . '/' . count($results) . ' taskid berhasil'
+    ]);
+    exit();
+  }
+
+  /**
+   * Helper: render badge HTML untuk status taskid.
+   * Dipanggil dari template via {?=$this->_taskBadge(...)?}
+   */
+  public function _taskBadge($status)
+  {
+    switch ($status) {
+      case 'Sudah':
+        return '<span class="label label-success" title="Sudah Terkirim">S</span>';
+      case 'Belum':
+        return '<span class="label label-warning" title="Belum Terkirim">B</span>';
+      case 'Gagal':
+        return '<span class="label label-danger"  title="Gagal">!</span>';
+      default:
+        return '<span class="label label-default" title="Belum Ada Data">-</span>';
+    }
+  }
+
   public function anyLogTaskID()
   {
     $this->_addHeaderFiles();

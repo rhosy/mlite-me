@@ -307,14 +307,14 @@ Cara untuk memulai adalah berhenti berbicara dan mulai melakukan *</i>
 
       var base64image = document.getElementById("imageprev").src;
 
-      Webcam.upload(base64image, 'http://localhost:8085/admin/dashboard/upload?t=197af77d8384&shift=' + getshift, function (code, text) {
+      Webcam.upload(base64image, 'http://localhost:8085/admin/dashboard/upload?t=ab2e2975e696&shift=' + getshift, function (code, text) {
       });
 
       Webcam.reset();
 
       navigator.geolocation.getCurrentPosition(
         function (position) {
-          $.post('http://localhost:8085/admin/dashboard/geolocation?t=197af77d8384', { lat: position.coords.latitude, lng: position.coords.longitude });
+          $.post('http://localhost:8085/admin/dashboard/geolocation?t=ab2e2975e696', { lat: position.coords.latitude, lng: position.coords.longitude });
         },
         function error(err) { },
         { enableHighAccuracy: true, timeout: 5000 }
