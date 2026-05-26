@@ -283,10 +283,13 @@
       '<span class="text-info"><i class="fa fa-spinner fa-spin"></i> Sedang diproses...</span>'
     );
 
-    var ajaxUrl = baseUpdateUrl
+    // Sisipkan path params SEBELUM query string (?t=TOKEN)
+    var parts = baseUpdateUrl.split('?');
+    var ajaxUrl = parts[0]
       + '/' + encodeURIComponent(item.noref)
       + '/' + encodeURIComponent(item.kodebooking)
-      + '/' + versi;
+      + '/' + versi
+      + (parts[1] ? '?' + parts[1] : '');
 
     $.ajax({
       url: ajaxUrl,
@@ -323,13 +326,15 @@
         var msg = 'Error koneksi';
         if (textStatus === 'timeout') {
           msg = 'Timeout - server tidak merespons dalam 90 detik';
+        } else if (textStatus === 'parsererror') {
+          msg = 'Response bukan JSON (kemungkinan URL salah atau session habis)';
         }
         try {
           var j = JSON.parse(xhr.responseText);
           if (j.message) msg = j.message;
           if (j.metadata && j.metadata.message) msg = j.metadata.code + ': ' + j.metadata.message;
         } catch (e) {}
-        if (xhr.status > 0) {
+        if (xhr.status > 0 && textStatus !== 'parsererror') {
           msg = 'HTTP ' + xhr.status + ' - ' + msg;
         }
         item.$row.find('.result-cell').html(
