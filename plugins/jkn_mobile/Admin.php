@@ -360,62 +360,71 @@ class Admin extends AdminModule
           $q['task7'] = strtotime($resep_obat2['datajam']) * 1000;
           $q['task99'] = $batal;*/
 
-      $taskid1['waktu'] = '';
-      $taskid2['waktu'] = '';
-      $taskid3['waktu'] = '';
-      $taskid4['waktu'] = '';
-      $taskid5['waktu'] = '';
-      $taskid6['waktu'] = '';
-      $taskid7['waktu'] = '';
+      $taskid1 = ['waktu' => ''];
+      $taskid2 = ['waktu' => ''];
+      $taskid3 = ['waktu' => ''];
+      $taskid4 = ['waktu' => ''];
+      $taskid5 = ['waktu' => ''];
+      $taskid6 = ['waktu' => ''];
+      $taskid7 = ['waktu' => ''];
+      $taskid99 = ['waktu' => ''];
 
       if (!empty($q['nomor_referensi'])) {
-        $taskid1 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '1')->oneArray();
-        $q['task1'] = date('Y-m-d H:i:s', isset_or($taskid1['waktu']) / 1000);
+        $taskid1_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '1')->oneArray();
+        if ($taskid1_db) $taskid1 = $taskid1_db;
+        $q['task1'] = !empty($taskid1['waktu']) ? date('Y-m-d H:i:s', (int)$taskid1['waktu'] / 1000) : '';
 
-        $taskid2 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '2')->oneArray();
-        $q['task2'] = date('Y-m-d H:i:s', isset_or($taskid2['waktu']) / 1000);
+        $taskid2_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '2')->oneArray();
+        if ($taskid2_db) $taskid2 = $taskid2_db;
+        $q['task2'] = !empty($taskid2['waktu']) ? date('Y-m-d H:i:s', (int)$taskid2['waktu'] / 1000) : '';
 
-        $taskid3 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '3')->oneArray();
-        $q['task3'] = date('Y-m-d H:i:s', isset_or($taskid3['waktu']) / 1000);
+        $taskid3_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '3')->oneArray();
+        if ($taskid3_db) $taskid3 = $taskid3_db;
+        $q['task3'] = !empty($taskid3['waktu']) ? date('Y-m-d H:i:s', (int)$taskid3['waktu'] / 1000) : '';
 
-        $taskid4 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '4')->oneArray();
-        $q['task4'] = date('Y-m-d H:i:s', isset_or($taskid4['waktu']) / 1000);
+        $taskid4_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '4')->oneArray();
+        if ($taskid4_db) $taskid4 = $taskid4_db;
+        $q['task4'] = !empty($taskid4['waktu']) ? date('Y-m-d H:i:s', (int)$taskid4['waktu'] / 1000) : '';
 
-        $taskid5 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '5')->oneArray();
-        $q['task5'] = date('Y-m-d H:i:s', isset_or($taskid5['waktu']) / 1000);
+        $taskid5_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '5')->oneArray();
+        if ($taskid5_db) $taskid5 = $taskid5_db;
+        $q['task5'] = !empty($taskid5['waktu']) ? date('Y-m-d H:i:s', (int)$taskid5['waktu'] / 1000) : '';
 
-        $taskid6 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '6')->oneArray();
-        $q['task6'] = date('Y-m-d H:i:s', isset_or($taskid6['waktu']) / 1000);
+        $taskid6_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '6')->oneArray();
+        if ($taskid6_db) $taskid6 = $taskid6_db;
+        $q['task6'] = !empty($taskid6['waktu']) ? date('Y-m-d H:i:s', (int)$taskid6['waktu'] / 1000) : '';
 
-        $taskid7 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '7')->oneArray();
-        $q['task7'] = date('Y-m-d H:i:s', isset_or($taskid7['waktu']) / 1000);
+        $taskid7_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '7')->oneArray();
+        if ($taskid7_db) $taskid7 = $taskid7_db;
+        $q['task7'] = !empty($taskid7['waktu']) ? date('Y-m-d H:i:s', (int)$taskid7['waktu'] / 1000) : '';
 
-        $taskid99 = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '99')->oneArray();
-        $q['task99'] = date('Y-m-d H:i:s', isset_or($taskid99['waktu']) / 1000);
+        $taskid99_db = $this->db('mlite_antrian_referensi_taskid')->where('nomor_referensi', $q['nomor_referensi'])->where('taskid', '99')->oneArray();
+        if ($taskid99_db) $taskid99 = $taskid99_db;
+        $q['task99'] = !empty($taskid99['waktu']) ? date('Y-m-d H:i:s', (int)$taskid99['waktu'] / 1000) : '';
       }
 
-      if ($taskid1['waktu'] == '') {
+      if (empty($taskid1['waktu'])) {
         $q['task1'] = $task1;
       }
-      if ($taskid2['waktu'] == '') {
+      if (empty($taskid2['waktu'])) {
         $q['task2'] = $task2;
       }
-      if ($taskid3['waktu'] == '') {
+      if (empty($taskid3['waktu'])) {
         $q['task3'] = isset_or($mutasi_berkas['dikirim']);
       }
-      if ($taskid4['waktu'] == '') {
+      if (empty($taskid4['waktu'])) {
         $q['task4'] = isset_or($mutasi_berkas2['diterima']);
       }
-      if ($taskid5['waktu'] == '') {
+      if (empty($taskid5['waktu'])) {
         $q['task5'] = isset_or($pemeriksaan_ralan['datajam']);
       }
-      if ($taskid6['waktu'] == '') {
+      if (empty($taskid6['waktu'])) {
         $q['task6'] = isset_or($resep_obat2['datajam']);
       }
-      if ($taskid7['waktu'] == '') {
+      if (empty($taskid7['waktu'])) {
         $q['task7'] = isset_or($resep_obat['datajam']);
       }
-      if ($taskid99['waktu'] == '') {
+      if (empty($taskid99['waktu'])) {
         $q['task99'] = $batal;
       }
       $rows[] = $q;
@@ -423,6 +432,110 @@ class Admin extends AdminModule
 
     $taskid = $rows;
     return $this->draw('taskid.html', ['taskid' => $taskid, 'dokter' => $dokter, 'kd_dokter' => $kd_dokter, 'periode_antrol' => $date]);
+  }
+
+  public function anyMonitorTaskID()
+  {
+    $this->_addHeaderFiles();
+    $this->getCssCard();
+
+    $bulan_antrol = date('Y-m');
+    $kd_dokter = '';
+    
+    if (isset($_POST['bulan_antrol']) && $_POST['bulan_antrol'] != '') {
+      $bulan_antrol = $_POST['bulan_antrol'];
+    }
+    if (isset($_POST['kd_dokter']) && $_POST['kd_dokter'] != '') {
+      $kd_dokter = $_POST['kd_dokter'];
+    }
+
+    $dokter = $this->db('dokter')->where('status', '1')->toArray();
+    $kd_pj_bpjs = $this->settings->get('jkn_mobile.kd_pj_bpjs');
+
+    // Query 1: Total Pasien JKN per hari
+    $sql_pasien = "
+      SELECT rp.tgl_registrasi, COUNT(DISTINCT rp.no_rawat) AS total_pasien
+      FROM reg_periksa rp
+      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
+    ";
+    $params_pasien = [$bulan_antrol . '%', $kd_pj_bpjs];
+    
+    if (!empty($kd_dokter)) {
+      $sql_pasien .= " AND rp.kd_dokter = ?";
+      $params_pasien[] = $kd_dokter;
+    }
+    
+    $sql_pasien .= " GROUP BY rp.tgl_registrasi";
+    $query_pasien = $this->db()->pdo()->prepare($sql_pasien);
+    $query_pasien->execute($params_pasien);
+    $res_pasien = $query_pasien->fetchAll(\PDO::FETCH_ASSOC);
+
+    $map_pasien = [];
+    foreach ($res_pasien as $rp) {
+      $map_pasien[$rp['tgl_registrasi']] = (int)$rp['total_pasien'];
+    }
+
+    // Query 2: Status Sinkronisasi per Pasien
+    $sql_task = "
+      SELECT 
+        t.tanggal_periksa,
+        t.nomor_referensi,
+        SUM(CASE WHEN t.status = 'Sudah' THEN 1 ELSE 0 END) as task_sudah,
+        SUM(CASE WHEN t.status != 'Sudah' THEN 1 ELSE 0 END) as task_belum
+      FROM mlite_antrian_referensi_taskid t
+      JOIN mlite_antrian_referensi mar ON mar.nomor_referensi = t.nomor_referensi OR mar.kodebooking = t.nomor_referensi
+      JOIN reg_periksa rp ON rp.no_rkm_medis = mar.no_rkm_medis AND rp.tgl_registrasi = mar.tanggal_periksa
+      WHERE t.tanggal_periksa LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
+    ";
+    $params_task = [$bulan_antrol . '%', $kd_pj_bpjs];
+    if (!empty($kd_dokter)) {
+      $sql_task .= " AND rp.kd_dokter = ?";
+      $params_task[] = $kd_dokter;
+    }
+    $sql_task .= " GROUP BY t.tanggal_periksa, t.nomor_referensi";
+
+    $query_task = $this->db()->pdo()->prepare($sql_task);
+    $query_task->execute($params_task);
+    $res_task = $query_task->fetchAll(\PDO::FETCH_ASSOC);
+
+    $map_sukses = [];
+    $map_gagal = [];
+    
+    foreach ($res_task as $rt) {
+      $tgl = $rt['tanggal_periksa'];
+      if (!isset($map_sukses[$tgl])) $map_sukses[$tgl] = 0;
+      if (!isset($map_gagal[$tgl])) $map_gagal[$tgl] = 0;
+      
+      if ((int)$rt['task_belum'] > 0) {
+        $map_gagal[$tgl]++;
+      } else if ((int)$rt['task_sudah'] > 0) {
+        $map_sukses[$tgl]++;
+      }
+    }
+
+    $days_in_month = date('t', strtotime($bulan_antrol . '-01'));
+    $rows = [];
+    
+    for ($d = 1; $d <= $days_in_month; $d++) {
+      $date_str = $bulan_antrol . '-' . str_pad($d, 2, '0', STR_PAD_LEFT);
+      $total_jkn = isset_or($map_pasien[$date_str], 0);
+      $sukses = isset_or($map_sukses[$date_str], 0);
+      $gagal = isset_or($map_gagal[$date_str], 0);
+      
+      $rows[] = [
+        'tanggal' => $date_str,
+        'total_jkn' => $total_jkn,
+        'sukses' => $sukses,
+        'gagal' => $gagal
+      ];
+    }
+
+    return $this->draw('monitor.html', [
+      'rows' => $rows,
+      'dokter' => $dokter,
+      'bulan_antrol' => $bulan_antrol,
+      'kd_dokter' => $kd_dokter
+    ]);
   }
 
   public function anyTaskIDMassal()
@@ -1209,6 +1322,107 @@ class Admin extends AdminModule
     }
 
     exit();
+  }
+
+  public function postAutoFixTaskID()
+  {
+    header('Content-Type: application/json; charset=utf-8');
+
+    $nomor_referensi = isset_or($_POST['nomor_referensi'], '');
+    $kodebooking = isset_or($_POST['kodebooking'], '');
+
+    if (empty($kodebooking)) {
+      echo json_encode(['success' => false, 'message' => 'Kode booking kosong']);
+      exit;
+    }
+
+    $reg_periksa = $this->db('reg_periksa')
+      ->select(['reg_periksa.kd_dokter', 'reg_periksa.kd_poli', 'reg_periksa.tgl_registrasi'])
+      ->join('mlite_antrian_referensi', 'mlite_antrian_referensi.no_rkm_medis = reg_periksa.no_rkm_medis AND mlite_antrian_referensi.tanggal_periksa = reg_periksa.tgl_registrasi')
+      ->where('mlite_antrian_referensi.kodebooking', $kodebooking)
+      ->oneArray();
+
+    $jam_selesai = '23:59:00';
+    $tgl_registrasi = date('Y-m-d');
+    if ($reg_periksa) {
+      $tgl_registrasi = $reg_periksa['tgl_registrasi'];
+      $tentukan_hari = date('D', strtotime($tgl_registrasi));
+      $day = ['Sun' => 'AKHAD', 'Mon' => 'SENIN', 'Tue' => 'SELASA', 'Wed' => 'RABU', 'Thu' => 'KAMIS', 'Fri' => 'JUMAT', 'Sat' => 'SABTU'];
+      $hari = $day[$tentukan_hari];
+
+      $jadwal = $this->db('jadwal')
+        ->where('kd_dokter', $reg_periksa['kd_dokter'])
+        ->where('kd_poli', $reg_periksa['kd_poli'])
+        ->where('hari_kerja', $hari)
+        ->oneArray();
+      
+      if ($jadwal && !empty($jadwal['jam_selesai'])) {
+        $jam_selesai = $jadwal['jam_selesai'];
+      }
+    }
+
+    $jam_selesai_timestamp = strtotime($tgl_registrasi . ' ' . $jam_selesai);
+
+    $errorRow = $this->db('mlite_antrian_referensi_taskid')
+      ->where('nomor_referensi', $kodebooking)
+      ->where('status', 'Belum')
+      ->where('keterangan', 'LIKE', '%lebih besar dari pada TaskId=%')
+      ->oneArray();
+
+    if (!$errorRow) {
+      echo json_encode(['success' => false, 'message' => 'Tidak ditemukan error "lebih besar dari pada" pada task manapun']);
+      exit;
+    }
+
+    if (preg_match('/Waktu TaskId=(\d+)\s*\((.*?)\s+WIB\)\s*lebih besar dari pada TaskId=(\d+)/i', $errorRow['keterangan'], $matches)) {
+      $bpjs_task_id = (int)$matches[1];
+      $bpjs_time_str = $matches[2];
+      $rejected_task_id = (int)$matches[3];
+
+      $bpjs_timestamp = strtotime($bpjs_time_str);
+      
+      if (!$bpjs_timestamp) {
+        echo json_encode(['success' => false, 'message' => 'Gagal membaca format waktu dari pesan error']);
+        exit;
+      }
+
+      $updated = 0;
+      $current_timestamp = $bpjs_timestamp;
+
+      for ($i = $rejected_task_id; $i <= 7; $i++) {
+        $taskToFix = $this->db('mlite_antrian_referensi_taskid')
+          ->where('nomor_referensi', $kodebooking)
+          ->where('taskid', (string)$i)
+          ->oneArray();
+
+        if ($taskToFix) {
+          $current_timestamp += 60;
+          
+          if ($current_timestamp > $jam_selesai_timestamp && $bpjs_timestamp <= $jam_selesai_timestamp) {
+             $current_timestamp = $jam_selesai_timestamp - (7 - $i) * 2; 
+          }
+
+          $new_waktu_ms = (string)($current_timestamp * 1000);
+
+          $this->db('mlite_antrian_referensi_taskid')
+            ->where('nomor_referensi', $kodebooking)
+            ->where('taskid', (string)$i)
+            ->save([
+              'waktu' => $new_waktu_ms,
+              'keterangan' => ''
+            ]);
+            
+          $updated++;
+        }
+      }
+
+      echo json_encode(['success' => true, 'message' => "$updated Task ID berhasil disesuaikan secara otomatis!"]);
+      exit;
+
+    } else {
+      echo json_encode(['success' => false, 'message' => 'Format error tidak dikenali untuk di-parse']);
+      exit;
+    }
   }
 
   // ---------------------------------------------------------------

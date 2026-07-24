@@ -374,7 +374,13 @@
         cls = 'text-danger';
       }
       html += icon + ' <strong>T' + r.taskid + '</strong>: '
-        + '<span class="' + cls + '">' + escHtml(r.message) + '</span><br>';
+        + '<span class="' + cls + '">' + escHtml(r.message) + '</span>';
+      
+      if (r.message && r.message.indexOf('lebih besar dari pada TaskId=') !== -1) {
+        html += ' <button type="button" class="btn btn-xs btn-warning btn-autofix" style="margin-left:5px;" title="Sesuaikan waktu otomatis agar bisa masuk BPJS"><i class="fa fa-wrench"></i> Auto Fix</button>';
+      }
+
+      html += '<br>';
     });
     html += '</div>';
     return html;
@@ -416,5 +422,46 @@
   function escHtml(str) {
     return $('<div>').text(str || '').html();
   }
+
+  $(document).on('click', '.btn-autofix', function() {
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
+    var kodebooking = $row.data('kodebooking');
+    var noref = $row.data('noref');
+    var versi = $('input[name="versi"]:checked').val();
+
+    var baseAjaxUrl = baseUpdateUrl.replace('updatewaktujson', 'autofixtaskid');
+    var parts = baseAjaxUrl.split('?');
+    var ajaxUrl = parts[0] + (parts[1] ? '?' + parts[1] : '');
+
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Fixing...');
+
+    $.ajax({
+      url: ajaxUrl,
+      method: 'POST',
+      data: {
+        nomor_referensi: noref,
+        kodebooking: kodebooking
+      },
+      dataType: 'json',
+      success: function(res) {
+        if (res.success) {
+          // alert(res.message);
+          startProcess([{
+            kodebooking: kodebooking,
+            noref: noref,
+            $row: $row
+          }], versi);
+        } else {
+          alert('Auto Fix gagal: ' + res.message);
+          $btn.prop('disabled', false).html('<i class="fa fa-wrench"></i> Auto Fix');
+        }
+      },
+      error: function() {
+        alert('Terjadi kesalahan jaringan saat Auto Fix.');
+        $btn.prop('disabled', false).html('<i class="fa fa-wrench"></i> Auto Fix');
+      }
+    });
+  });
 })();
 </script>
