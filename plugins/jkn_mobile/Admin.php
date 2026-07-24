@@ -1294,9 +1294,10 @@ class Admin extends AdminModule
    * AJAX endpoint — proses satu pasien, return JSON.
    * GET /admin/jkn_mobile/updatewaktujson/{nomor_referensi}/{kode_booking}/{versi}
    */
-  public function getUpdatewaktujson($nomor_referensi, $kode_booking, $versi)
+  public function getUpdatewaktujson($nomor_referensi = null, $kode_booking = null, $versi = null)
   {
     header('Content-Type: application/json; charset=utf-8');
+
 
     // Cari record referensi
     $mar = $this->db('mlite_antrian_referensi')
