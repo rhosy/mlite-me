@@ -7,14 +7,35 @@ $( function() {
   });
 });
 
-$('.display').DataTable({
-  "lengthChange": false,
+var taskidTable = $('.display').DataTable({
+  "lengthChange": true,
+  "pageLength": 100,
   "scrollX": true,
   "language": { "search": "" },
   dom: "<<'data-table-title'><'datatable-search'f>><'row'<'col-sm-12'tr>><<'pmd-datatable-pagination' l i p>>"
 });
-var t = $(".display").DataTable().rows().count();
+var t = taskidTable.rows().count();
 $(".data-table-title").html('<h3 style="display:inline;float:left;margin-top:0;" class="hidden-xs">Total: ' + t + '</h3>');
+
+// Filter BPJS / Umum — hanya berlaku untuk tabel #taskid-table
+$.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+  if (settings.nTable.id !== 'taskid-table') return true; // skip tabel lain
+  var selectedJenis = $('#filter_jenis_table').val();
+  if (!selectedJenis || selectedJenis === 'semua') return true;
+  var rowNode = taskidTable.row(dataIndex).node();
+  if (!rowNode) return true;
+  var jenis = $(rowNode).attr('data-jenis');
+  return jenis === selectedJenis;
+});
+
+$('#filter_jenis_table').on('change', function() {
+  taskidTable.draw();
+});
+
+// Default filter BPJS saat halaman load
+$(document).ready(function() {
+  $('#filter_jenis_table').val('bpjs').trigger('change');
+});
 
 $('#poli_nama').keyup(function(e){
   if(e.which == 32) {

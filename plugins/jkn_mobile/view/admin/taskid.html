@@ -32,6 +32,13 @@
                         </select>
                       </li>
                       <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
+                        <select class="form-control" name="filter_jenis" id="filter_jenis_form">
+                          <option value="bpjs" {if: isset($filter_jenis) && $filter_jenis == 'bpjs'}selected{/if}>BPJS</option>
+                          <option value="umum" {if: isset($filter_jenis) && $filter_jenis == 'umum'}selected{/if}>Umum</option>
+                          <option value="semua" {if: isset($filter_jenis) && $filter_jenis == 'semua'}selected{/if}>Semua</option>
+                        </select>
+                      </li>
+                      <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
                         <input type="submit" name="" class="btn btn-primary btn-block" value="Submit">
                       </li>
                       </form>
@@ -40,8 +47,20 @@
                   <h3 class="panel-title">Task ID JKN Mobile</h3>
               </div>
               <div class="panel-body">
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col-sm-4 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-filter"></i> Jenis Pasien</span>
+                      <select class="form-control" id="filter_jenis_table">
+                        <option value="bpjs">BPJS</option>
+                        <option value="umum">Umum</option>
+                        <option value="semua">Semua</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="table-responsive no-margin">
-                  <table class="table table-condensed no-margin display no-wrap" width="100%">
+                  <table class="table table-condensed no-margin display no-wrap" width="100%" id="taskid-table">
                     <thead>
                       <tr>
                         <th>No RM</th>
@@ -63,7 +82,7 @@
                     </thead>
                     <tbody>
                       {loop: $taskid}
-                      <tr>
+                      <tr data-jenis="{?=!empty($value['nomor_referensi']) ? 'bpjs' : 'umum'?}">
                         <td>{$value.no_rkm_medis}</td>
                         <td>{?=$this->core->getPasienInfo('nm_pasien', $value.no_rkm_medis)?}</td>
                         <td>{$value.tgl_registrasi}</td>

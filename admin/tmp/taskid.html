@@ -9,26 +9,34 @@
         <div class="panel panel-default">
               <div class="panel-heading">
                   <div class="btn-group pull-right" style="margin-top:-8px;">
-                    <a href="http://localhost:8085/admin/jkn_mobile/updatewaktubulk?t=a5b0c3d51503" class="btn btn-sm btn-success">
+                    <a href="http://localhost:8085/admin/jkn_mobile/updatewaktubulk?t=dcff734b1365" class="btn btn-sm btn-success">
                       <i class="fa fa-send"></i><span class="hidden-xs"> Bulk Update Waktu ke BPJS</span>
                     </a>
-                    <a href="http://localhost:8085/admin/jkn_mobile/taskidmassal?t=a5b0c3d51503" class="btn btn-sm btn-warning">
+                    <a href="http://localhost:8085/admin/jkn_mobile/taskidmassal?t=dcff734b1365" class="btn btn-sm btn-warning">
                       <i class="fa fa-clock-o"></i><span class="hidden-xs"> Update Massal Task ID</span>
                     </a>
                     <span class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-calendar"></i><span class="hidden-xs"> Periode Antrol</span>
                     </span>
                     <ul class="dropdown-menu dropdown-menu-right">
-                      <form class="" action="http://localhost:8085/admin/jkn_mobile/taskid?t=a5b0c3d51503" method="POST">
+                      <form class="" action="http://localhost:8085/admin/jkn_mobile/taskid?t=dcff734b1365" method="POST">
                       <li style="padding-left:5px;padding-right:5px;">
                         <input type="text" id="periode_antrol" class="form-control periode_antrol" name="periode_antrol" required>
                       </li>
                       <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
                         <select class="form-control" name="kd_dokter">
                           <option value="">Semua Dokter</option>
-                                                    <option value="DR001" >DR001 - dr. Ataaka Muhammad</option>
-                                                    <option value="DR002" >DR002 - dr. Demo Kedua</option>
+                                                    <option value="-" >- - -</option>
+                                                    <option value="2020010100" >2020010100 - dr. R. BUDI SANTOSO, SP. M, MM</option>
+                                                    <option value="2023050101" >2023050101 - dr. KURROTUL AINI, SP. M</option>
                                                   </select>
+                      </li>
+                      <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
+                        <select class="form-control" name="filter_jenis" id="filter_jenis_form">
+                          <option value="bpjs" >BPJS</option>
+                          <option value="umum" >Umum</option>
+                          <option value="semua" >Semua</option>
+                        </select>
                       </li>
                       <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
                         <input type="submit" name="" class="btn btn-primary btn-block" value="Submit">
@@ -39,8 +47,20 @@
                   <h3 class="panel-title">Task ID JKN Mobile</h3>
               </div>
               <div class="panel-body">
+                <div class="row" style="margin-bottom:10px;">
+                  <div class="col-sm-4 col-xs-12">
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-filter"></i> Jenis Pasien</span>
+                      <select class="form-control" id="filter_jenis_table">
+                        <option value="bpjs">BPJS</option>
+                        <option value="umum">Umum</option>
+                        <option value="semua">Semua</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
                 <div class="table-responsive no-margin">
-                  <table class="table table-condensed no-margin display no-wrap" width="100%">
+                  <table class="table table-condensed no-margin display no-wrap" width="100%" id="taskid-table">
                     <thead>
                       <tr>
                         <th>No RM</th>
@@ -61,6 +81,397 @@
                       </tr>
                     </thead>
                     <tbody>
+                                            <tr data-jenis="umum">
+                        <td>014082</td>
+                        <td>MOH. ROEHAN PRATAMA</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000003?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000003</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014028</td>
+                        <td>ZAINAH</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000001?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000001</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014076</td>
+                        <td>ASIM</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000002?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000002</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013929</td>
+                        <td>HASIP</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000005?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000005</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260724100136MAT002MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>010060</td>
+                        <td>SITI RAHMAH</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000006?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000006</a></td>
+                        <td>MATA</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td>0208S01120260724102057MAT001MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014084</td>
+                        <td>HANIFAH FAHAD ALQODI</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000007?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000007</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014012</td>
+                        <td>ZAINUDDIN</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000008?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000008</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:06:01</td>
+                        <td></td>
+                        <td>2026-07-24 16:05:59</td>
+                        <td>2026-07-24 16:14:14</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013704</td>
+                        <td>SITI AZIZAH</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000009?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000009</a></td>
+                        <td>MATA</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td>0208S01120260724110122MAT002MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013948</td>
+                        <td>ENDANG SULISTINA ASTUTIK</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000010?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000010</a></td>
+                        <td>MATA</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td>0208S01120260724013057MAT003MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013559</td>
+                        <td>MASE</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000011?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000011</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260724013932MAT003MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:47:32</td>
+                        <td></td>
+                        <td>2026-07-24 15:47:30</td>
+                        <td>2026-07-24 15:57:19</td>
+                        <td>2026-07-24 16:04:59</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013790</td>
+                        <td>ABDUS SALAM</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000012?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000012</a></td>
+                        <td>MATA</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td>0208S01120260724020646MAT004MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014055</td>
+                        <td>SAISA</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000013?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000013</a></td>
+                        <td>MATA</td>
+                        <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                        <td>0208S01120260724021101MAT005MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013345</td>
+                        <td>HALIMAN</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000014?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000014</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260722052645MAT011MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:31:23</td>
+                        <td></td>
+                        <td>2026-07-24 15:31:06</td>
+                        <td>2026-07-24 15:39:23</td>
+                        <td>2026-07-24 15:47:38</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014085</td>
+                        <td>KHOIRIYATUL MAHMUDAH</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000015?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000015</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260724031156MAT012MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014086</td>
+                        <td>PUNI</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000016?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000016</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:40:05</td>
+                        <td></td>
+                        <td>2026-07-24 15:39:51</td>
+                        <td>2026-07-24 15:45:29</td>
+                        <td>2026-07-24 15:53:34</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>008591</td>
+                        <td>SULIHA</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000017?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000017</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260723090247MAT013MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:50:32</td>
+                        <td></td>
+                        <td>2026-07-24 15:50:29</td>
+                        <td>2026-07-24 15:59:42</td>
+                        <td>2026-07-24 16:09:00</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014083</td>
+                        <td>RAFIATUS SALAMAH</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000004?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000004</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260724092539MAT001MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:45:23</td>
+                        <td></td>
+                        <td>2026-07-24 15:45:20</td>
+                        <td>2026-07-24 15:47:54</td>
+                        <td>2026-07-24 15:56:06</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013993</td>
+                        <td>ZAINAB</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000018?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000018</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260723080943MAT012MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 15:55:04</td>
+                        <td></td>
+                        <td>2026-07-24 15:55:02</td>
+                        <td>2026-07-24 16:01:02</td>
+                        <td>2026-07-24 16:10:55</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>013427</td>
+                        <td>ASMARI</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000019?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000019</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260716053946MAT010MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:04:25</td>
+                        <td></td>
+                        <td>2026-07-24 16:04:22</td>
+                        <td>2026-07-24 16:10:14</td>
+                        <td>2026-07-24 16:18:11</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="umum">
+                        <td>014087</td>
+                        <td>MUHAMMAD SHOLEHUDIN</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000020?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000020</a></td>
+                        <td>MATA - Umum</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:01:05</td>
+                        <td></td>
+                        <td>2026-07-24 16:00:53</td>
+                        <td>2026-07-24 16:04:22</td>
+                        <td>0000-00-00 00:00:00</td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014079</td>
+                        <td>SITI NURUL MASRUROH HARIYATI</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000021?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000021</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260723060139MAT015MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:20:39</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014088</td>
+                        <td>NURFADILA</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000022?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000022</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260724035346MAT016MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:20:34</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
+                                            <tr data-jenis="bpjs">
+                        <td>014081</td>
+                        <td>ABD GANI</td>
+                        <td>2026-07-24</td>
+                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260724000023?t=dcff734b1365" data-toggle="modal" data-target="#asuransiModal">2026/07/24/000023</a></td>
+                        <td>MATA</td>
+                        <td>dr. KURROTUL AINI, SP. M</td>
+                        <td>0208S01120260723072837MAT016MJKN</td>
+                        <td></td>
+                        <td></td>
+                        <td>2026-07-24 16:20:42</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0000-00-00 00:00:00</td>
+                      </tr>
                                           </tbody>
                   </table>
                 </div>
@@ -79,7 +490,7 @@
 <script type="text/javascript">
     $(function () {
         $('.periode_antrol').datetimepicker({
-        defaultDate: "2026-05-26",
+        defaultDate: "2026-07-24",
             format: 'YYYY-MM-DD',
             locale: 'id'
         });
