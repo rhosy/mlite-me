@@ -307,612 +307,624 @@
                     <div class="col-lg-12" style="margin-bottom:0px !important;">
                         <h2 class="content-title"><a href="http://localhost:8085/admin/jkn_mobile/manage?t=4d1fdca55afb">JKN Mobile</a> <a href="http://localhost:8085/admin/dashboard/help/jkn_mobile?t=4d1fdca55afb" data-toggle="modal" data-target="#moduleModal"><span class="pull-right"><small class="hidden-xs">Help</small> <i class="fa fa-question-circle-o" aria-hidden="true"></i></span></a></h2>
                         <style media="screen">
-  th, td {
+  #bulk-table th,
+  #bulk-table td {
     white-space: nowrap;
-    vertical-align: top !important;
+    vertical-align: middle !important;
+  }
+  .result-cell {
+    min-width: 220px;
+    white-space: normal !important;
   }
 </style>
+
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="panel panel-default">
-              <div class="panel-heading">
-                  <div class="btn-group pull-right" style="margin-top:-8px;">
-                    <a href="http://localhost:8085/admin/jkn_mobile/updatewaktubulk?t=4d1fdca55afb" class="btn btn-sm btn-success">
-                      <i class="fa fa-send"></i><span class="hidden-xs"> Bulk Update Waktu ke BPJS</span>
-                    </a>
-                    <a href="http://localhost:8085/admin/jkn_mobile/taskidmassal?t=4d1fdca55afb" class="btn btn-sm btn-warning">
-                      <i class="fa fa-clock-o"></i><span class="hidden-xs"> Update Massal Task ID</span>
-                    </a>
-                    <a href="http://localhost:8085/admin/jkn_mobile/monitortaskid?t=4d1fdca55afb" class="btn btn-sm btn-info" target="_blank">
-                      <i class="fa fa-bar-chart"></i><span class="hidden-xs"> Monitor Bulanan</span>
-                    </a>
-                    <span class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                      <i class="fa fa-calendar"></i><span class="hidden-xs"> Periode Antrol</span>
-                    </span>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <form class="" action="http://localhost:8085/admin/jkn_mobile/taskid?t=4d1fdca55afb" method="POST">
-                      <li style="padding-left:5px;padding-right:5px;">
-                        <input type="text" id="periode_antrol" class="form-control periode_antrol" name="periode_antrol" required>
-                      </li>
-                      <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
-                        <select class="form-control" name="kd_dokter">
-                          <option value="">Semua Dokter</option>
-                                                    <option value="-" >- - -</option>
-                                                    <option value="2020010100" >2020010100 - dr. R. BUDI SANTOSO, SP. M, MM</option>
-                                                    <option value="2023050101" selected>2023050101 - dr. KURROTUL AINI, SP. M</option>
-                                                  </select>
-                      </li>
-                      <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
-                        <select class="form-control" name="filter_jenis" id="filter_jenis_form">
-                          <option value="bpjs" >BPJS</option>
-                          <option value="umum" >Umum</option>
-                          <option value="semua" >Semua</option>
-                        </select>
-                      </li>
-                      <li style="padding-left:5px;padding-right:5px;margin-top:5px;">
-                        <input type="submit" name="" class="btn btn-primary btn-block" value="Submit">
-                      </li>
-                      </form>
-                    </ul>
-                  </div>
-                  <h3 class="panel-title">Task ID JKN Mobile</h3>
-              </div>
-              <div class="panel-body">
-                <div class="row" style="margin-bottom:10px;">
-                  <div class="col-sm-4 col-xs-12">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="fa fa-filter"></i> Jenis Pasien</span>
-                      <select class="form-control" id="filter_jenis_table">
-                        <option value="bpjs">BPJS</option>
-                        <option value="umum">Umum</option>
-                        <option value="semua">Semua</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-responsive no-margin">
-                  <table class="table table-condensed no-margin display no-wrap" width="100%" id="taskid-table">
-                    <thead>
-                      <tr>
-                        <th>No RM</th>
-                        <th>Nama Pasien</th>
-                        <th>Tanggal</th>
-                        <th>No Rawat</th>
-                        <th>Poliklinik</th>
-                        <th>Dokter</th>
-                        <th>Nomor Referensi</th>
-                        <th>Task 1</th>
-                        <th>Task 2</th>
-                        <th>Task 3</th>
-                        <th>Task 4</th>
-                        <th>Task 5</th>
-                        <th>Task 6</th>
-                        <th>Task 7</th>
-                        <th>Task 99</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                                            <tr data-jenis="bpjs">
-                        <td>011420</td>
-                        <td>MOHAMMAD JAKFAR DASUKI</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000001?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000001</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721052641MAT001MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:22:37</td>
-                        <td></td>
-                        <td>2026-07-21 16:22:02</td>
-                        <td>2026-07-21 16:38:37</td>
-                        <td>2026-07-21 16:41:21</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013233</td>
-                        <td>PUNA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000002?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000002</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721061351MAT002MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:48:53</td>
-                        <td></td>
-                        <td>2026-07-21 08:47:07</td>
-                        <td>2026-07-21 16:15:42</td>
-                        <td>2026-07-21 16:22:10</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>011633</td>
-                        <td>AZIZAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000003?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000003</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721084452MAT003MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 17:24:29</td>
-                        <td></td>
-                        <td>2026-07-21 17:25:25</td>
-                        <td>2026-07-21 17:29:52</td>
-                        <td>2026-07-21 17:32:23</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>012771</td>
-                        <td>HOZAIMAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000008?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000008</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721111603MAT005MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:23:09</td>
-                        <td></td>
-                        <td>2026-07-21 16:18:45</td>
-                        <td>2026-07-21 16:42:30</td>
-                        <td>2026-07-21 16:44:42</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>011895</td>
-                        <td>SALEM</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000010?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000010</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721023936MAT006MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:55:44</td>
-                        <td></td>
-                        <td>2026-07-21 15:55:31</td>
-                        <td>2026-07-21 16:17:39</td>
-                        <td>2026-07-21 16:23:33</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013527</td>
-                        <td>ZARKASI WAHYUDI. FR</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000012?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000012</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260716091621MAT005MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:57:05</td>
-                        <td></td>
-                        <td>2026-07-21 15:56:46</td>
-                        <td>2026-07-21 16:20:19</td>
-                        <td>2026-07-21 16:24:50</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013489</td>
-                        <td>ALIFA IMAMAH PUTRI</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000013?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000013</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260714023257MAT004MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:57:56</td>
-                        <td></td>
-                        <td>2026-07-21 15:57:33</td>
-                        <td>2026-07-21 16:22:45</td>
-                        <td>2026-07-21 16:25:43</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013458</td>
-                        <td>JUANA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000014?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000014</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720034643MAT010MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:58:39</td>
-                        <td></td>
-                        <td>2026-07-21 15:58:24</td>
-                        <td>2026-07-21 16:23:56</td>
-                        <td>2026-07-21 16:26:49</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013290</td>
-                        <td>M SALEHODDIN</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000015?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000015</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260719062850MAT007MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:00:55</td>
-                        <td></td>
-                        <td>2026-07-21 16:00:42</td>
-                        <td>2026-07-21 16:27:11</td>
-                        <td>2026-07-21 16:31:50</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>014056</td>
-                        <td>SUPARDI</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000011?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000011</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721025544MAT007MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:55:01</td>
-                        <td></td>
-                        <td>2026-07-21 15:54:47</td>
-                        <td>2026-07-21 16:18:19</td>
-                        <td>2026-07-21 16:24:13</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="umum">
-                        <td>008752</td>
-                        <td>ROHEMAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000020?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000020</a></td>
-                        <td>MATA - Umum</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 15:59:42</td>
-                        <td></td>
-                        <td>2026-07-21 15:59:29</td>
-                        <td>2026-07-21 16:25:17</td>
-                        <td>2026-07-21 16:29:36</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>014002</td>
-                        <td>SYUKRI SYAFIE</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000017?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000017</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721033641MAT011MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:02:23</td>
-                        <td></td>
-                        <td>2026-07-21 16:02:06</td>
-                        <td>2026-07-21 16:28:36</td>
-                        <td>2026-07-21 16:32:53</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013889</td>
-                        <td>AIRA KHANZA MECCA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000018?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000018</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721033743MAT012MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:03:55</td>
-                        <td></td>
-                        <td>2026-07-21 16:03:00</td>
-                        <td></td>
-                        <td></td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013886</td>
-                        <td>FARIDA TURYSIA S.</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000021?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000021</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721034054MAT013MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:05:00</td>
-                        <td></td>
-                        <td>2026-07-21 16:04:29</td>
-                        <td>2026-07-21 16:31:25</td>
-                        <td>2026-07-21 16:34:14</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013339</td>
-                        <td>NUR HASANAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000022?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000022</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720123736MAT009MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:05:56</td>
-                        <td></td>
-                        <td>2026-07-21 16:05:54</td>
-                        <td>2026-07-21 16:32:14</td>
-                        <td>2026-07-21 16:35:01</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="umum">
-                        <td>009034</td>
-                        <td>NOR HAMSAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000026?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000026</a></td>
-                        <td>MATA - Umum</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:28:40</td>
-                        <td></td>
-                        <td>2026-07-21 16:28:22</td>
-                        <td>2026-07-21 16:47:23</td>
-                        <td>2026-07-21 16:51:34</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="umum">
-                        <td>014057</td>
-                        <td>JUWAIRIYAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000023?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000023</a></td>
-                        <td>MATA - Umum</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:09:28</td>
-                        <td></td>
-                        <td>2026-07-21 16:09:06</td>
-                        <td>2026-07-21 17:14:20</td>
-                        <td>2026-07-21 17:19:57</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>014052</td>
-                        <td>SATUNA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000005?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000005</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721092114MAT004MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:14:35</td>
-                        <td></td>
-                        <td>2026-07-21 16:14:16</td>
-                        <td>2026-07-21 16:36:44</td>
-                        <td>2026-07-21 16:38:02</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013505</td>
-                        <td>MIFTAHOL KHOIR</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000024?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000024</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721035645MAT014MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:17:52</td>
-                        <td></td>
-                        <td>2026-07-21 16:17:24</td>
-                        <td></td>
-                        <td></td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013197</td>
-                        <td>ARMANI</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000025?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000025</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260718065847MAT006MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:27:41</td>
-                        <td></td>
-                        <td>2026-07-21 16:27:28</td>
-                        <td>2026-07-21 16:46:30</td>
-                        <td>2026-07-21 16:47:15</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>012646</td>
-                        <td>SAID</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000027?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000027</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720044705MAT011MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:47:46</td>
-                        <td></td>
-                        <td>2026-07-21 16:47:31</td>
-                        <td></td>
-                        <td></td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="umum">
-                        <td>013942</td>
-                        <td>FARHATUL AZKIYA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000030?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000030</a></td>
-                        <td>MATA - Umum</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:29:22</td>
-                        <td></td>
-                        <td>2026-07-21 16:29:07</td>
-                        <td>2026-07-21 16:48:38</td>
-                        <td>2026-07-21 16:54:36</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>010358</td>
-                        <td>AHMAD BAHRI SYARIF</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000029?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000029</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720045030MAT013MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:49:10</td>
-                        <td></td>
-                        <td>2026-07-21 16:48:57</td>
-                        <td>2026-07-21 17:02:20</td>
-                        <td>2026-07-21 17:04:19</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>014043</td>
-                        <td>SARIFAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000028?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000028</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720044746MAT012MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:48:31</td>
-                        <td></td>
-                        <td>2026-07-21 16:48:17</td>
-                        <td>2026-07-21 16:55:33</td>
-                        <td>2026-07-21 16:56:51</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>012509</td>
-                        <td>RUSLI AL HASBY</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000031?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000031</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721043222MAT015MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:49:57</td>
-                        <td></td>
-                        <td>2026-07-21 16:49:42</td>
-                        <td>2026-07-21 17:05:31</td>
-                        <td>2026-07-21 17:06:49</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="umum">
-                        <td>014058</td>
-                        <td>FATIMATUS ZAHRA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000033?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000033</a></td>
-                        <td>MATA - Umum</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 16:59:20</td>
-                        <td></td>
-                        <td>2026-07-21 16:59:09</td>
-                        <td>2026-07-21 17:07:52</td>
-                        <td>2026-07-21 17:10:55</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>011830</td>
-                        <td>FETIYATUR ROHMAH</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000034?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000034</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721045643MAT016MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 17:01:49</td>
-                        <td></td>
-                        <td>2026-07-21 17:01:28</td>
-                        <td>2026-07-21 17:09:11</td>
-                        <td>2026-07-21 17:13:44</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>013046</td>
-                        <td>MINA</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000035?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000035</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260720100357MAT008MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 17:16:53</td>
-                        <td></td>
-                        <td>2026-07-21 17:17:44</td>
-                        <td>2026-07-21 17:20:39</td>
-                        <td>2026-07-21 17:22:07</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                            <tr data-jenis="bpjs">
-                        <td>014059</td>
-                        <td>MOH FADIL</td>
-                        <td>2026-07-21</td>
-                        <td><a href="http://localhost:8085/admin/jkn_mobile/taskidinput/20260721000037?t=4d1fdca55afb" data-toggle="modal" data-target="#asuransiModal">2026/07/21/000037</a></td>
-                        <td>MATA</td>
-                        <td>dr. KURROTUL AINI, SP. M</td>
-                        <td>0208S01120260721052646MAT017MJKN</td>
-                        <td></td>
-                        <td></td>
-                        <td>2026-07-21 17:43:19</td>
-                        <td></td>
-                        <td>2026-07-21 20:46:18</td>
-                        <td>2026-07-21 17:44:30</td>
-                        <td>2026-07-21 17:48:50</td>
-                        <td>0000-00-00 00:00:00</td>
-                      </tr>
-                                          </tbody>
-                  </table>
-                </div>
-              </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <a href="http://localhost:8085/admin/jkn_mobile/taskid?t=4d1fdca55afb" class="btn btn-sm btn-default pull-right" style="margin-top:-6px;">
+          <i class="fa fa-arrow-left"></i> Kembali ke Task ID
+        </a>
+        <h3 class="panel-title">Bulk Update Waktu ke BPJS</h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- Filter form -->
+        <form action="http://localhost:8085/admin/jkn_mobile/updatewaktubulk?t=4d1fdca55afb" method="POST" class="form-inline" style="margin-bottom:15px;">
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih Tanggal</label>
+            <input type="text" id="tanggal_antrol" class="form-control" name="tanggal_antrol" value="2026-07-21" required>
+          </div>
+          <div class="form-group" style="margin-right:10px;">
+            <label style="display:block;">Pilih Dokter</label>
+            <select class="form-control" name="kd_dokter">
+              <option value="">-- Pilih Dokter --</option>
+                            <option value="-" >- - -</option>
+                            <option value="2020010100" selected>2020010100 - dr. R. BUDI SANTOSO, SP. M, MM</option>
+                            <option value="2023050101" >2023050101 - dr. KURROTUL AINI, SP. M</option>
+                          </select>
+          </div>
+          <div class="form-group" style="margin-top:22px;">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Tampilkan Pasien</button>
+          </div>
+                    <div class="form-group" style="margin-top:22px;margin-left:10px;">
+            <span class="label label-info" style="font-size:12px;padding:8px 10px;display:inline-block;">
+              Jumlah Pasien: 10            </span>
+          </div>
+                  </form>
+
+        
+        <!-- Controls -->
+        <div class="row" style="margin-bottom:12px;">
+          <div class="col-md-12">
+            <label class="radio-inline">
+              <input type="radio" name="versi" value="v2" checked> V2
+            </label>
+            <label class="radio-inline" style="margin-left:5px;">
+              <input type="radio" name="versi" value="v3"> V3 (+ jenisresep)
+            </label>
+            &nbsp;
+            <button type="button" class="btn btn-warning" id="btn-mulai-update" disabled>
+              <i class="fa fa-send"></i> Mulai Update (<span id="selected-count">0</span> dipilih)
+            </button>
+            <button type="button" class="btn btn-danger" id="btn-batalkan" style="display:none;">
+              <i class="fa fa-stop"></i> Batalkan
+            </button>
+          </div>
         </div>
 
-    </div>
-</div>
-<div class="modal fade" id="asuransiModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            ...
+        <!-- Progress bar -->
+        <div id="progress-section" style="display:none;margin-bottom:12px;">
+          <div class="progress" style="margin-bottom:4px;">
+            <div class="progress-bar progress-bar-striped active" id="progress-bar" role="progressbar" style="width:0%;min-width:2em;">
+              0 / 0
+            </div>
+          </div>
+          <small id="progress-label" class="text-muted"></small>
         </div>
+
+        <!-- Summary -->
+        <div id="summary-section" style="display:none;margin-bottom:12px;">
+          <div class="alert" id="summary-alert" style="margin-bottom:8px;"></div>
+          <button type="button" class="btn btn-warning btn-sm" id="btn-retry" style="display:none;">
+            <i class="fa fa-refresh"></i> Ulangi yang Gagal
+          </button>
+        </div>
+
+        <!-- Legend -->
+        <p class="help-block" style="margin-bottom:8px;">
+          Status taskid:
+          <span class="label label-success">S</span> Sudah Terkirim &nbsp;
+          <span class="label label-warning">B</span> Belum Terkirim &nbsp;
+          <span class="label label-danger">!</span> Gagal &nbsp;
+          <span class="label label-default">-</span> Belum ada data
+        </p>
+
+        <!-- Table -->
+        <div class="table-responsive no-margin">
+          <table class="table table-condensed table-bordered table-striped" id="bulk-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="select-all-header"></th>
+                <th>Nama Pasien</th>
+                <th>No Rawat</th>
+                <th>Dokter</th>
+                <th>Kode Booking</th>
+                <th title="Mulai tunggu admisi">T1</th>
+                <th title="Mulai pelayanan admisi">T2</th>
+                <th title="Mulai tunggu poli">T3</th>
+                <th title="Mulai pelayanan poli">T4</th>
+                <th title="Selesai pelayanan poli">T5</th>
+                <th title="Permintaan resep">T6</th>
+                <th title="Selesai apotek">T7</th>
+                <th class="result-cell">Status Update</th>
+              </tr>
+            </thead>
+            <tbody>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721090138MAT001MJKN" data-noref="0208S01120260721090138MAT001MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>PUI</td>
+                <td>2026/07/21/000004</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721090138MAT001MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721044843MAT010MJKN" data-noref="0208S01120260721044843MAT010MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>SANIDAH</td>
+                <td>2026/07/21/000032</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721044843MAT010MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260720071102MAT010MJKN" data-noref="0208S01120260720071102MAT010MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>ABDUL AZIZ</td>
+                <td>2026/07/21/000039</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260720071102MAT010MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721062102MAT011MJKN" data-noref="0208S01120260721062102MAT011MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>RIBUT SANTOSO</td>
+                <td>2026/07/21/000040</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721062102MAT011MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721110353MAT002MJKN" data-noref="0208S01120260721110353MAT002MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>AGIL LUTFI</td>
+                <td>2026/07/21/000007</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721110353MAT002MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260720052908MAT009MJKN" data-noref="0208S01120260720052908MAT009MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>ACHMAD</td>
+                <td>2026/07/21/000016</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260720052908MAT009MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721064500MAT014MJKN" data-noref="0208S01120260721064500MAT014MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>AZMIL SAFIY</td>
+                <td>2026/07/21/000045</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721064500MAT014MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721063438MAT012MJKN" data-noref="0208S01120260721063438MAT012MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>LAILY HASIANA BASAR</td>
+                <td>2026/07/21/000043</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721063438MAT012MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721063549MAT013MJKN" data-noref="0208S01120260721063549MAT013MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>MUHSIN MUIS</td>
+                <td>2026/07/21/000044</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721063549MAT013MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                            <tr class="bulk-row" data-kodebooking="0208S01120260721081940MAT015MJKN" data-noref="0208S01120260721081940MAT015MJKN">
+                <td>
+                                    <input type="checkbox" class="row-check">
+                                  </td>
+                <td>SRI MARYANA</td>
+                <td>2026/07/21/000049</td>
+                <td>dr. R. BUDI SANTOSO, SP. M, MM</td>
+                <td>
+                  0208S01120260721081940MAT015MJKN                                  </td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td><span class="label label-default" title="Belum Ada Data">-</span></td>
+                <td class="result-cell">
+                                  </td>
+              </tr>
+                          </tbody>
+          </table>
+        </div>
+
+        
+      </div>
     </div>
+  </div>
 </div>
+
 <script type="text/javascript">
-    $(function () {
-        $('.periode_antrol').datetimepicker({
-        defaultDate: "2026-07-21",
-            format: 'YYYY-MM-DD',
-            locale: 'id'
-        });
+(function () {
+  var baseUpdateUrl = 'http://localhost:8085/admin/jkn_mobile/updatewaktujson?t=4d1fdca55afb';
+  var isCancelled = false;
 
-    // Keep dropdown open while interacting with form inputs/selects.
-    $('.panel-heading .dropdown-menu').on('click', function (e) {
-      e.stopPropagation();
+  // Hapus handler sebelumnya (jika page di-reload via AJAX)
+  $(document).off('.bulkupdate');
+
+  $('#tanggal_antrol').datetimepicker({
+    format: 'YYYY-MM-DD',
+    locale: 'id'
+  });
+
+  // Helper: target hanya input checkbox (bukan <a> kalypto yang copy class)
+  function $rowChecks() {
+    return $('#bulk-table input.row-check');
+  }
+
+  function refreshCount() {
+    var total   = $rowChecks().length;
+    var checked = $rowChecks().filter(':checked').length;
+    $('#selected-count').text(checked);
+    $('#btn-mulai-update').prop('disabled', checked === 0);
+    // Sync visual select-all header
+    var allChecked = total > 0 && checked === total;
+    $('input#select-all-header').prop('checked', allChecked)
+      .next('.toggle').toggleClass('checked', allChecked);
+  }
+
+  // Select-all: hanya di thead tabel
+  $(document).on('change.bulkupdate', '#select-all-header', function () {
+    var isChecked = this.checked;
+    // Update semua row-check + kalypto visual
+    $rowChecks().each(function () {
+      $(this).prop('checked', isChecked).next('.toggle').toggleClass('checked', isChecked);
     });
+    var count = isChecked ? $rowChecks().length : 0;
+    $('#selected-count').text(count);
+    $('#btn-mulai-update').prop('disabled', count === 0);
+  });
+
+  // Individual checkbox
+  $(document).on('change.bulkupdate', 'input.row-check', function () {
+    refreshCount();
+  });
+
+  // --- Mulai Update ---
+  $('#btn-mulai-update').on('click', function () {
+    var versi = $('input[name="versi"]:checked').val();
+    var queue = [];
+    $rowChecks().filter(':checked').each(function () {
+      var row = $(this).closest('tr');
+      queue.push({
+        kodebooking: row.data('kodebooking'),
+        noref: row.data('noref'),
+        $row: row
+      });
     });
+    if (queue.length === 0) return;
+    startProcess(queue, versi);
+  });
+
+  // --- Batalkan ---
+  $('#btn-batalkan').on('click', function () {
+    isCancelled = true;
+    $(this).prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Membatalkan...');
+  });
+
+  // --- Ulangi yang Gagal ---
+  $('#btn-retry').on('click', function () {
+    var versi = $('input[name="versi"]:checked').val();
+    var failedQueue = [];
+    $('#bulk-table .bulk-row').each(function () {
+      var resultCell = $(this).find('.result-cell');
+      if (resultCell.find('.result-fail').length > 0) {
+        failedQueue.push({
+          kodebooking: $(this).data('kodebooking'),
+          noref: $(this).data('noref'),
+          $row: $(this)
+        });
+      }
+    });
+    if (failedQueue.length === 0) {
+      alert('Tidak ada pasien dengan status gagal.');
+      return;
+    }
+    startProcess(failedQueue, versi);
+  });
+
+  function startProcess(queue, versi) {
+    isCancelled = false;
+    $('#btn-mulai-update').prop('disabled', true);
+    $('#btn-batalkan').show().prop('disabled', false).html('<i class="fa fa-stop"></i> Batalkan');
+    $('#summary-section').hide();
+    $('#btn-retry').hide();
+    $('#progress-section').show();
+    updateProgressBar(0, queue.length);
+    $('#progress-label').text('Memulai proses...');
+
+    $.each(queue, function (i, item) {
+      item.$row['find']('.result-cell')['html'](
+        '<span class="text-muted"><i class="fa fa-clock-o"></i> Menunggu...</span>'
+      );
+    });
+
+    processQueue(queue, versi, 0, 0, 0);
+  }
+
+  function processQueue(items, versi, index, successCount, failCount) {
+    if (isCancelled || index >= items.length) {
+      finishProcess(successCount, failCount, index, items.length);
+      return;
+    }
+
+    var item  = items[index];
+    var total = items.length;
+
+    updateProgressBar(index, total);
+    $('#progress-label').text('Memproses: ' + item.kodebooking + ' (' + (index + 1) + '/' + total + ')');
+    item.$row['find']('.result-cell')['html'](
+      '<span class="text-info"><i class="fa fa-spinner fa-spin"></i> Sedang diproses...</span>'
+    );
+
+    // Sisipkan path params SEBELUM query string (?t=TOKEN)
+    var parts = baseUpdateUrl.split('?');
+    var ajaxUrl = parts[0]
+      + '/' + encodeURIComponent(item.noref)
+      + '/' + encodeURIComponent(item.kodebooking)
+      + '/' + versi
+      + (parts[1] ? '?' + parts[1] : '');
+
+    $.ajax({
+      url: ajaxUrl,
+      method: 'GET',
+      dataType: 'json',
+      timeout: 90000,
+      success: function (data) {
+        if (data.success) {
+          var hasPartialFail = hasFailedTasks(data.results);
+          if (hasPartialFail) {
+            item.$row['find']('.result-cell')['html'](
+              '<span class="text-warning result-fail"><i class="fa fa-exclamation-circle"></i> Sebagian gagal</span>'
+              + buildTaskDetail(data.results)
+            );
+            failCount++;
+          } else {
+            item.$row['find']('.result-cell')['html'](
+              '<span class="text-success result-ok"><i class="fa fa-check-circle"></i> Berhasil</span>'
+              + buildTaskDetail(data.results)
+            );
+            successCount++;
+          }
+        } else {
+          item.$row['find']('.result-cell')['html'](
+            '<span class="text-danger result-fail"><i class="fa fa-times-circle"></i> '
+            + escHtml(data.message || 'Gagal') + '</span>'
+            + buildTaskDetail(data.results)
+          );
+          failCount++;
+        }
+        processQueue(items, versi, index + 1, successCount, failCount);
+      },
+      error: function (xhr, textStatus) {
+        var msg = 'Error koneksi';
+        if (textStatus === 'timeout') {
+          msg = 'Timeout - server tidak merespons dalam 90 detik';
+        } else if (textStatus === 'parsererror') {
+          msg = 'Response bukan JSON (kemungkinan URL salah atau session habis)';
+        }
+        try {
+          var j = JSON.parse(xhr.responseText);
+          if (j.message) msg = j.message;
+          if (j.metadata && j.metadata.message) msg = j.metadata.code + ': ' + j.metadata.message;
+        } catch (e) {}
+        if (xhr.status > 0 && textStatus !== 'parsererror') {
+          msg = 'HTTP ' + xhr.status + ' - ' + msg;
+        }
+        item.$row['find']('.result-cell')['html'](
+          '<span class="text-danger result-fail"><i class="fa fa-times-circle"></i> ' + escHtml(msg) + '</span>'
+        );
+        failCount++;
+        processQueue(items, versi, index + 1, successCount, failCount);
+      }
+    });
+  }
+
+  function hasFailedTasks(results) {
+    if (!results) return false;
+    for (var i = 0; i < results.length; i++) {
+      if (results[i].success === false && results[i].message &&
+          results[i].message.indexOf('Tidak ada data taskid') === -1) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function buildTaskDetail(results) {
+    if (!results || results.length === 0) return '';
+    var html = '<div style="margin-top:4px;font-size:11px;line-height:1.8;">';
+    $.each(results, function (i, r) {
+      if (r.message && r.message.indexOf('Tidak ada data taskid') !== -1) {
+        // Skip taskid yang memang tidak ada data (bukan error)
+        return true;
+      }
+      var icon, cls;
+      if (r.success) {
+        icon = '<i class="fa fa-check text-success"></i>';
+        cls = 'text-success';
+      } else {
+        icon = '<i class="fa fa-times text-danger"></i>';
+        cls = 'text-danger';
+      }
+      html += icon + ' <strong>T' + r.taskid + '</strong>: '
+        + '<span class="' + cls + '">' + escHtml(r.message) + '</span>';
+      
+      if (r.message && r.message.indexOf('lebih besar dari pada TaskId=') !== -1) {
+        html += ' <button type="button" class="btn btn-xs btn-warning btn-autofix" style="margin-left:5px;" title="Sesuaikan waktu otomatis agar bisa masuk BPJS"><i class="fa fa-wrench"></i> Auto Fix</button>';
+      }
+
+      html += '<br>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function updateProgressBar(done, total) {
+    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    $('#progress-bar').css('width', Math.max(pct, 2) + '%').text(done + ' / ' + total);
+  }
+
+  function finishProcess(successCount, failCount, processed, total) {
+    var wasCancelled = isCancelled && processed < total;
+    updateProgressBar(processed, total);
+    $('#progress-bar').removeClass('active');
+    $('#btn-batalkan').hide();
+    $('#btn-mulai-update').prop('disabled', false);
+
+    var cls = 'alert-success';
+    if (failCount > 0 && successCount === 0) cls = 'alert-danger';
+    else if (failCount > 0) cls = 'alert-warning';
+
+    var msg = '<i class="fa fa-check-circle"></i> <strong>' + successCount + ' pasien berhasil</strong>';
+    if (failCount > 0) msg += ', <strong>' + failCount + ' gagal</strong>';
+    if (wasCancelled) {
+      msg += ' &mdash; <em>Dibatalkan, ' + (total - processed) + ' belum diproses.</em>';
+    }
+
+    $('#summary-alert')
+      .removeClass('alert-success alert-danger alert-warning')
+      .addClass('alert ' + cls)
+      .html(msg);
+    $('#summary-section').show();
+
+    if (failCount > 0) {
+      $('#btn-retry').show();
+    }
+  }
+
+  function escHtml(str) {
+    return $('<div>').text(str || '').html();
+  }
+
+  $(document).on('click', '.btn-autofix', function() {
+    var $btn = $(this);
+    var $row = $btn['closest']('tr');
+    var kodebooking = $row['data']('kodebooking');
+    var noref = $row['data']('noref');
+    var versi = $('input[name="versi"]:checked').val();
+
+    var baseAjaxUrl = baseUpdateUrl.replace('updatewaktujson', 'autofixtaskid');
+    var parts = baseAjaxUrl.split('?');
+    var ajaxUrl = parts[0] + (parts[1] ? '?' + parts[1] : '');
+
+    $btn['prop']('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Fixing...');
+
+    $.ajax({
+      url: ajaxUrl,
+      method: 'POST',
+      data: {
+        nomor_referensi: noref,
+        kodebooking: kodebooking
+      },
+      dataType: 'json',
+      success: function(res) {
+        if (res.success) {
+          // alert(res.message);
+          startProcess([{
+            kodebooking: kodebooking,
+            noref: noref,
+            $row: $row
+          }], versi);
+        } else {
+          alert('Auto Fix gagal: ' + res.message);
+          $btn['prop']('disabled', false).html('<i class="fa fa-wrench"></i> Auto Fix');
+        }
+      },
+      error: function() {
+        alert('Terjadi kesalahan jaringan saat Auto Fix.');
+        $btn['prop']('disabled', false).html('<i class="fa fa-wrench"></i> Auto Fix');
+      }
+    });
+  });
+})();
 </script>
                     </div>
                 </div>

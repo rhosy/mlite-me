@@ -478,21 +478,21 @@ class Admin extends AdminModule
     // Query 2: Status Sinkronisasi per Pasien
     $sql_task = "
       SELECT 
-        t.tanggal_periksa,
-        t.nomor_referensi,
+        rp.tgl_registrasi as tanggal_periksa,
+        mar.kodebooking,
         SUM(CASE WHEN t.status = 'Sudah' THEN 1 ELSE 0 END) as task_sudah,
-        SUM(CASE WHEN t.status != 'Sudah' THEN 1 ELSE 0 END) as task_belum
-      FROM mlite_antrian_referensi_taskid t
-      JOIN mlite_antrian_referensi mar ON mar.nomor_referensi = t.nomor_referensi OR mar.kodebooking = t.nomor_referensi
-      JOIN reg_periksa rp ON rp.no_rkm_medis = mar.no_rkm_medis AND rp.tgl_registrasi = mar.tanggal_periksa
-      WHERE t.tanggal_periksa LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
+        SUM(CASE WHEN t.status != 'Sudah' OR t.status IS NULL THEN 1 ELSE 0 END) as task_belum
+      FROM reg_periksa rp
+      JOIN mlite_antrian_referensi mar ON mar.no_rkm_medis = rp.no_rkm_medis AND mar.tanggal_periksa = rp.tgl_registrasi
+      LEFT JOIN mlite_antrian_referensi_taskid t ON (t.nomor_referensi = mar.nomor_referensi OR t.nomor_referensi = mar.kodebooking) AND t.taskid != '99'
+      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
     ";
     $params_task = [$bulan_antrol . '%', $kd_pj_bpjs];
     if (!empty($kd_dokter)) {
       $sql_task .= " AND rp.kd_dokter = ?";
       $params_task[] = $kd_dokter;
     }
-    $sql_task .= " GROUP BY t.tanggal_periksa, t.nomor_referensi";
+    $sql_task .= " GROUP BY rp.tgl_registrasi, mar.kodebooking";
 
     $query_task = $this->db()->pdo()->prepare($sql_task);
     $query_task->execute($params_task);
@@ -1482,7 +1482,7 @@ class Admin extends AdminModule
         // Ambil status setiap taskid (1–7) dari DB dan precompute badge HTML
         for ($i = 1; $i <= 7; $i++) {
           $task = $this->db('mlite_antrian_referensi_taskid')
-            ->where('nomor_referensi', $q['kodebooking'])
+            ->where('nomor_referensi', $noref)
             ->where('taskid', (string)$i)
             ->oneArray();
           $status = $task ? (isset($task['status']) ? $task['status'] : '') : '';
