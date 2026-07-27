@@ -40,7 +40,7 @@ $(document).ready(function() {
 $('#poli_nama').keyup(function(e){
   if(e.which == 32) {
     $.ajax({
-      url: 'http://localhost:8085/admin/jkn_mobile/refpoli?t=4d1fdca55afb',
+      url: 'http://localhost:8085/admin/jkn_mobile/refpoli?t=6e913baa29b1',
       method:"GET",
       data:{},
            success:function(data)
@@ -75,7 +75,7 @@ $('#poliList').on('click', 'li', function(){
 $('#dokter_nama').keyup(function(e){
   if(e.which == 32) {
     $.ajax({
-      url: 'http://localhost:8085/admin/jkn_mobile/refdokter?t=4d1fdca55afb',
+      url: 'http://localhost:8085/admin/jkn_mobile/refdokter?t=6e913baa29b1',
       method:"GET",
       data:{},
            success:function(data)

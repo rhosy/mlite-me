@@ -506,9 +506,9 @@ class Admin extends AdminModule
       if (!isset($map_sukses[$tgl])) $map_sukses[$tgl] = 0;
       if (!isset($map_gagal[$tgl])) $map_gagal[$tgl] = 0;
       
-      if ((int)$rt['task_belum'] > 0) {
+      if ((int)$rt['task_belum'] > 0 || (int)$rt['task_sudah'] < 5) {
         $map_gagal[$tgl]++;
-      } else if ((int)$rt['task_sudah'] > 0) {
+      } else {
         $map_sukses[$tgl]++;
       }
     }
