@@ -452,11 +452,16 @@ class Admin extends AdminModule
     $dokter = $this->db('dokter')->where('status', '1')->toArray();
     $kd_pj_bpjs = $this->settings->get('jkn_mobile.kd_pj_bpjs');
 
-    // Query 1: Total Pasien JKN per hari
+    $exclude_taskid = str_replace(",", "','", $this->settings->get('jkn_mobile.exclude_taskid'));
+
+    // Query 1: Total Pasien per Tanggal
     $sql_pasien = "
-      SELECT rp.tgl_registrasi, COUNT(DISTINCT rp.no_rawat) AS total_pasien
+      SELECT 
+        rp.tgl_registrasi, 
+        COUNT(rp.no_rawat) as total_pasien
       FROM reg_periksa rp
-      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
+      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal' 
+        AND rp.kd_poli NOT IN ('$exclude_taskid')
     ";
     $params_pasien = [$bulan_antrol . '%', $kd_pj_bpjs];
     
@@ -484,8 +489,9 @@ class Admin extends AdminModule
         SUM(CASE WHEN t.status != 'Sudah' OR t.status IS NULL THEN 1 ELSE 0 END) as task_belum
       FROM reg_periksa rp
       JOIN mlite_antrian_referensi mar ON mar.no_rkm_medis = rp.no_rkm_medis AND mar.tanggal_periksa = rp.tgl_registrasi
-      LEFT JOIN mlite_antrian_referensi_taskid t ON (t.nomor_referensi = mar.nomor_referensi OR t.nomor_referensi = mar.kodebooking) AND t.taskid != '99'
-      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal'
+      LEFT JOIN mlite_antrian_referensi_taskid t ON t.nomor_referensi = (CASE WHEN IFNULL(mar.kodebooking, '') != '' THEN mar.kodebooking ELSE mar.nomor_referensi END) AND t.taskid != '99'
+      WHERE rp.tgl_registrasi LIKE ? AND rp.kd_pj = ? AND rp.stts <> 'Batal' 
+        AND rp.kd_poli NOT IN ('$exclude_taskid')
     ";
     $params_task = [$bulan_antrol . '%', $kd_pj_bpjs];
     if (!empty($kd_dokter)) {
@@ -520,7 +526,9 @@ class Admin extends AdminModule
       $date_str = $bulan_antrol . '-' . str_pad($d, 2, '0', STR_PAD_LEFT);
       $total_jkn = isset_or($map_pasien[$date_str], 0);
       $sukses = isset_or($map_sukses[$date_str], 0);
-      $gagal = isset_or($map_gagal[$date_str], 0);
+      // Gagal adalah selisih dari total pasien JKN dikurangi yang sudah Sukses
+      $gagal = $total_jkn - $sukses;
+      if ($gagal < 0) $gagal = 0; // fallback aman
       
       $rows[] = [
         'tanggal' => $date_str,
