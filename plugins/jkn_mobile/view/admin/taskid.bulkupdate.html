@@ -378,6 +378,8 @@
       
       if (r.message && r.message.indexOf('lebih besar dari pada TaskId=') !== -1) {
         html += ' <button type="button" class="btn btn-xs btn-warning btn-autofix" style="margin-left:5px;" title="Sesuaikan waktu otomatis agar bisa masuk BPJS"><i class="fa fa-wrench"></i> Auto Fix</button>';
+      } else if (!r.success && r.message && (r.message.toLowerCase().indexOf('sudah ada') !== -1 || r.message.toLowerCase().indexOf('taskid terakhir') !== -1 || r.message.indexOf('208') !== -1)) {
+        html += ' <button type="button" class="btn btn-xs btn-info btn-mark-synced" data-taskid="' + r.taskid + '" style="margin-left:5px;" title="Tandai sebagai Sudah (Sinkron) di lokal"><i class="fa fa-check"></i> Tandai Sudah</button>';
       }
 
       html += '<br>';
@@ -464,4 +466,24 @@
     });
   });
 })();
+  $(document).on('click', '.btn-mark-synced', function() {
+    var $btn = $(this);
+    var $row = $btn.closest('tr');
+    var kodebooking = $row.data('kodebooking');
+    var taskid = $btn.data('taskid');
+    
+    $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i>');
+    $.post('{?=url([ADMIN,"jkn_mobile","markassudah"])?}', {
+      kodebooking: kodebooking,
+      taskid: taskid
+    }, function(res) {
+      if(res.success) {
+        $btn.removeClass('btn-info').addClass('btn-success').html('<i class="fa fa-check"></i> Disimpan');
+      } else {
+        $btn.prop('disabled', false).html('<i class="fa fa-times"></i> Gagal');
+      }
+    }, 'json').fail(function() {
+      $btn.prop('disabled', false).html('<i class="fa fa-times"></i> Error');
+    });
+  });
 </script>

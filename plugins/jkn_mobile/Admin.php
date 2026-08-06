@@ -336,11 +336,11 @@ class Admin extends AdminModule
       if (!$mlite_antrian_referensi) {
         $mlite_antrian_referensi = $this->db('mlite_antrian_referensi')->where('tanggal_periksa', $q['tgl_registrasi'])->where('no_rkm_medis', $q['no_rkm_medis'])->oneArray();
       }
-      $mutasi_berkas = $this->db('mutasi_berkas')->select('dikirim')->where('no_rawat', $reg_periksa['no_rawat'])->where('dikirim', '<>', '0000-00-00 00:00:00')->oneArray();
-      $mutasi_berkas2 = $this->db('mutasi_berkas')->select('diterima')->where('no_rawat', $reg_periksa['no_rawat'])->where('diterima', '<>', '0000-00-00 00:00:00')->oneArray();
-      $pemeriksaan_ralan = $this->db('pemeriksaan_ralan')->select(['datajam' => 'concat(tgl_perawatan," ",jam_rawat)'])->where('no_rawat', $reg_periksa['no_rawat'])->oneArray();
-      $resep_obat = $this->db('resep_obat')->select(['datajam' => 'concat(tgl_perawatan," ",jam)'])->where('no_rawat', $reg_periksa['no_rawat'])->oneArray();
-      $resep_obat2 = $this->db('resep_obat')->select(['datajam' => 'concat(tgl_peresepan," ",jam_peresepan)'])->where('no_rawat', $reg_periksa['no_rawat'])->where('concat(tgl_perawatan," ",jam)', '<>', 'concat(tgl_peresepan," ",jam_peresepan)')->oneArray();
+      $mutasi_berkas = $this->db('mutasi_berkas')->select('dikirim')->where('no_rawat', $q['no_rawat'])->where('dikirim', '<>', '0000-00-00 00:00:00')->oneArray();
+      $mutasi_berkas2 = $this->db('mutasi_berkas')->select('diterima')->where('no_rawat', $q['no_rawat'])->where('diterima', '<>', '0000-00-00 00:00:00')->oneArray();
+      $pemeriksaan_ralan = $this->db('pemeriksaan_ralan')->select(['datajam' => 'concat(tgl_perawatan," ",jam_rawat)'])->where('no_rawat', $q['no_rawat'])->oneArray();
+      $resep_obat = $this->db('resep_obat')->select(['datajam' => 'concat(tgl_perawatan," ",jam)'])->where('no_rawat', $q['no_rawat'])->oneArray();
+      $resep_obat2 = $this->db('resep_obat')->select(['datajam' => 'concat(tgl_peresepan," ",jam_peresepan)'])->where('no_rawat', $q['no_rawat'])->where('concat(tgl_perawatan," ",jam)', '<>', 'concat(tgl_peresepan," ",jam_peresepan)')->oneArray();
 
       $mlite_antrian_loket = $this->db('mlite_antrian_loket')->where('postdate', $date)->where('type', 'Loket')->where('no_rkm_medis', $q['no_rkm_medis'])->oneArray();
       $task1 = '';
@@ -1505,6 +1505,32 @@ class Admin extends AdminModule
   }
 
   /**
+   * AJAX endpoint — tandai task manual sebagai Sudah.
+   * POST /admin/jkn_mobile/markassudah
+   */
+  public function postMarkassudah()
+  {
+    header('Content-Type: application/json; charset=utf-8');
+    $kodebooking = isset($_POST['kodebooking']) ? $_POST['kodebooking'] : null;
+    $taskid = isset($_POST['taskid']) ? $_POST['taskid'] : null;
+
+    if ($kodebooking && $taskid) {
+      // Coba update dengan kodebooking atau nomor_referensi
+      $this->db('mlite_antrian_referensi_taskid')
+        ->where('nomor_referensi', $kodebooking)
+        ->where('taskid', $taskid)
+        ->save([
+          'status' => 'Sudah',
+          'keterangan' => 'Ditandai manual karena BPJS menyatakan sudah ada'
+        ]);
+      echo json_encode(['success' => true]);
+    } else {
+      echo json_encode(['success' => false]);
+    }
+    exit();
+  }
+
+  /**
    * AJAX endpoint — proses satu pasien, return JSON.
    * GET /admin/jkn_mobile/updatewaktujson/{nomor_referensi}/{kode_booking}/{versi}
    */
@@ -1597,7 +1623,7 @@ class Admin extends AdminModule
       $code    = isset($json['metadata']['code'])    ? (int)$json['metadata']['code']    : 0;
       $message = isset($json['metadata']['message']) ? $json['metadata']['message']       : 'Tidak ada respons';
 
-      if ($code === 200) {
+      if ($code === 200 || $code === 208) {
         $this->db('mlite_antrian_referensi_taskid')
           ->where('nomor_referensi', $kode_booking)
           ->where('taskid', $i)
